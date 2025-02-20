@@ -3,17 +3,19 @@ package dominio;
 import java.util.List;
 
 public class Setor {
-	private int id_setor;
+	
 	@Override
 	public String toString() {
 		return "Setor [id_setor=" + id_setor + ", nome=" + nome + ", local=" + local + ", funcionarios=" + funcionarios
 				+ "]";
 	}
+	
+	private int id_setor;
 	private String nome;
 	private String local;
-	
-	
 	private List<Funcionario> funcionarios;
+	
+	
 	public int getId_setor() {
 		return id_setor;
 	}

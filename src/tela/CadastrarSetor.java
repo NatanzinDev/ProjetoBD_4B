@@ -1,23 +1,30 @@
 package tela;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import javax.swing.border.TitledBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+import banco.DisciplinaDao;
+import dominio.Aluno;
+import dominio.Setor;
 
 public class CadastrarSetor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txf_nome;
+	private JTextField txf_local;
 
 	/**
 	 * Launch the application.
@@ -55,15 +62,15 @@ public class CadastrarSetor extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(101, 28, 96, 19);
-		panel.add(textField);
-		textField.setColumns(10);
+		txf_nome = new JTextField();
+		txf_nome.setBounds(101, 28, 96, 19);
+		panel.add(txf_nome);
+		txf_nome.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(101, 73, 96, 19);
-		panel.add(textField_1);
+		txf_local = new JTextField();
+		txf_local.setColumns(10);
+		txf_local.setBounds(101, 73, 96, 19);
+		panel.add(txf_local);
 		
 		JLabel lblNewLabel = new JLabel("Nome:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -75,8 +82,31 @@ public class CadastrarSetor extends JFrame {
 		lblLocal.setBounds(21, 76, 45, 13);
 		panel.add(lblLocal);
 		
-		JButton btnNewButton = new JButton("Cadastrar");
-		btnNewButton.setBounds(21, 126, 176, 21);
-		panel.add(btnNewButton);
+		JButton bt_cadastrar = new JButton("Cadastrar");
+		bt_cadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastrarSetor();
+			}
+		});
+		bt_cadastrar.setBounds(21, 126, 176, 21);
+		panel.add(bt_cadastrar);
+	}
+
+	protected void cadastrarSetor() {
+		Setor s = new Setor();
+		s.setNome(txf_nome.getText());
+		s.setLocal(txf_local.getText());
+
+		Aluno a = (Aluno) comboBoxAluno.getSelectedItem();
+		disciplina.setAluno(a);
+
+		try {
+			DisciplinaDao dao = new DisciplinaDao();
+			dao.cadastrarDisciplina(disciplina);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro no Sistema");
+			e.printStackTrace();
+		}
+		
 	}
 }
