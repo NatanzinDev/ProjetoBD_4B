@@ -63,7 +63,7 @@ public class CadastrarSupervisor extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(131, 34, 388, 381);
+		panel.setBounds(109, 35, 431, 381);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -133,7 +133,8 @@ public class CadastrarSupervisor extends JFrame {
 		panel.add(senha1);
 		
 		lb_erro = new JLabel("");
-		lb_erro.setBounds(103, 261, 255, 25);
+		lb_erro.setHorizontalAlignment(SwingConstants.CENTER);
+		lb_erro.setBounds(20, 261, 401, 25);
 		panel.add(lb_erro);
 	}
 
@@ -142,28 +143,48 @@ public class CadastrarSupervisor extends JFrame {
 		String email = txf_email.getText();
 		String senhaString1 = new String(senha1.getPassword());
 		String senhaString2 = new String(senha2.getPassword());
-		String senhaCriptografada = CriptografiaUtils.criptografarMD5(senhaString1);
+		String senhaCriptografada;
+		
+	
+	
+		
+		
+		if(nome == null || nome.isEmpty()) {
+			lb_erro.setText("O campo de nome não \npode estar vazio");
+			return;
+		}
+		
+		if(email == null || email.isEmpty()) {
+			lb_erro.setText("O campo de nome não pode estar vazio");
+			return;
+		}
+		
+		if(senhaString1 == null || senhaString1.isEmpty() || senhaString1.length() <= 3) {
+			lb_erro.setText("A senha não pode estar vazia ou conter menos de 4 caracteres.");
+			lb_erro.setForeground(Color.red);
+			senha1.setText("");
+			senha2.setText("");
+			return;
+		}
+		
+		if(senhaString2 == null || senhaString2.isEmpty() || senhaString2.length() <= 3) {
+			lb_erro.setText("A senha não pode estar vazia ou conter menos de 4 caracteres.");
+			lb_erro.setForeground(Color.red);
+			senha1.setText("");
+			senha2.setText("");
+			return;
+		}
 		
 		if(!senhaString1.equals(senhaString2)) {
 			lb_erro.setText("Senha não são iguais, digite novamente.");
 			lb_erro.setForeground(Color.red);
 			senha1.setText("");
 			senha2.setText("");
+			return;
 		}else {
-			
+			senhaCriptografada = CriptografiaUtils.criptografarMD5(senhaString1);
 			lb_erro.setText("");
 			
-		}
-	
-		
-		
-		if(nome == null || nome.isEmpty()) {
-			lb_erro.setText("O campo de nome não \npode estar vazio");
-			
-		}
-		
-		if(email == null || email.isEmpty()) {
-			lb_erro.setText("O campo de nome não pode estar vazio");
 		}
 		
 		Supervisor s = new Supervisor();
@@ -188,7 +209,7 @@ public class CadastrarSupervisor extends JFrame {
 		comando.close();
 		conexao.close();
 
-		exibirMensagem("Usu�rio " + nome + " Cadastro com Sucesso");
+		exibirMensagem("Usuário " + nome + " Cadastro com Sucesso");
 
 		// Limpando os Campos
 		txf_email.setText("");

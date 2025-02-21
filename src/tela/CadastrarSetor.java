@@ -15,8 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import banco.DisciplinaDao;
-import dominio.Aluno;
+import banco.SetorDao;
 import dominio.Setor;
 
 public class CadastrarSetor extends JFrame {
@@ -97,16 +96,17 @@ public class CadastrarSetor extends JFrame {
 		s.setNome(txf_nome.getText());
 		s.setLocal(txf_local.getText());
 
-		Aluno a = (Aluno) comboBoxAluno.getSelectedItem();
-		disciplina.setAluno(a);
+		
 
 		try {
-			DisciplinaDao dao = new DisciplinaDao();
-			dao.cadastrarDisciplina(disciplina);
+			SetorDao dao = new SetorDao();
+			dao.CadastrarSetor(s);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro no Sistema");
 			e.printStackTrace();
 		}
 		
+		txf_nome.setText("");
+		txf_local.setText("");
 	}
 }
