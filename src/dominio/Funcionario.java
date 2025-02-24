@@ -6,7 +6,16 @@ public class Funcionario {
 	private double salario;
 	private String cargo;
 	private String telefone;
+	private int idsetor;
 	
+	public int getIdsetor() {
+		return idsetor;
+	}
+
+	public void setIdsetor(int idsetor) {
+		this.idsetor = idsetor;
+	}
+
 	@Override
 	public String toString() {
 		return " Nome: " + nome + " Cargo: "+ cargo ;

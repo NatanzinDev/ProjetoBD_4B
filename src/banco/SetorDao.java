@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+
 import dominio.Funcionario;
 import dominio.Setor;
 
@@ -71,12 +72,12 @@ public class SetorDao {
 	public void cadastrarFuncionarioNoSetor(Setor s, Funcionario f) throws SQLException, ClassNotFoundException {
 		Connection conexao = FabricaConexao.criarConexao();
 		s.getFuncionarios().add(f);
-		String sql = "UPDATE setor SET id_func = ? WHERE nome LIKE ?";
+		String sql = "UPDATE funcionario SET id_setor = ? WHERE nome LIKE ?";
 	
 		PreparedStatement comando = conexao.prepareStatement(sql);
 		
 		
-		comando.setInt(1, f.getId());
+		comando.setInt(1, s.getId_setor());
 		comando.setString(2, s.getNome() + "%");
 
 		comando.executeUpdate();
@@ -85,5 +86,53 @@ public class SetorDao {
 		conexao.close();
 
 		JOptionPane.showMessageDialog(null, "Funcionário cadastrado no setor com sucesso.");
+	}
+	
+	//busca
+	public List<Setor> buscarSetor(String n, String l) throws ClassNotFoundException, SQLException{
+		Connection conexao = FabricaConexao.criarConexao();
+		String sql = " SELECT * FROM setor WHERE 1 = 1 ";
+
+		if (n != null && !n.isEmpty()) {
+			sql += " AND nome LIKE ? ";
+		}
+		
+		if(l != null && !l.isEmpty()) {
+			sql += "AND lugar LIKE ?";
+		}
+
+		
+
+		
+
+		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+		int i = 1;
+
+		if (n != null && !n.isEmpty()) {
+			comando.setString(i, "%" + n.toUpperCase() + "%");
+			i++;
+		}
+
+		if (l != null && !l.isEmpty()) {
+			comando.setString(i, "%" + l.toUpperCase() + "%");
+			i++;
+		}
+
+		
+
+		ResultSet resultado = comando.executeQuery();
+
+		List<Setor> setoresCadastrados = new ArrayList<>();
+
+		while (resultado.next()) {
+			Setor s = new Setor();
+			s.setNome(resultado.getString("nome"));
+			s.setLocal(resultado.getString("lugar"));
+			
+			setoresCadastrados.add(s);
+		
+		}
+
+		return setoresCadastrados;
 	}
 }
