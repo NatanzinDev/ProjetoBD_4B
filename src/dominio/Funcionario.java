@@ -9,8 +9,7 @@ public class Funcionario {
 	
 	@Override
 	public String toString() {
-		return " Nome:" + nome + " Telefone:"
-				+ telefone ;
+		return " Nome: " + nome + " Cargo: "+ cargo ;
 	}
 	
 	//getters e setters

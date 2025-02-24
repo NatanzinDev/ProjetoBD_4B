@@ -1,19 +1,19 @@
 package dominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Setor {
 	
 	@Override
 	public String toString() {
-		return "Setor [id_setor=" + id_setor + ", nome=" + nome + ", local=" + local + ", funcionarios=" + funcionarios
-				+ "]";
+		return  this.nome +" Local: " + this.local ;
 	}
 	
 	private int id_setor;
 	private String nome;
 	private String local;
-	private List<Funcionario> funcionarios;
+	private List<Funcionario> funcionarios = new ArrayList<>();
 	
 	
 	public int getId_setor() {
