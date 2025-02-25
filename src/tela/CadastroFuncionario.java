@@ -351,7 +351,7 @@ public class CadastroFuncionario extends JFrame {
 		if(bt_cadastrar.getText().equals("Cadastrar")) {
 			Connection conexao = FabricaConexao.criarConexao();
 			
-			String sql = "INSERT INTO FUNCIONARIO (nome,salario,cargo,telefone) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO FUNCIONARIO (nome,salario,cargo,telefone,id_funcionario) VALUES (?,?,?,?)";
 			Funcionario f = new Funcionario();
 			double aux = Double.parseDouble(txtF_salario.getText().toString().replace(",", "."));
 			
@@ -360,12 +360,14 @@ public class CadastroFuncionario extends JFrame {
 			f.setCargo(txtF_cargo.getText());
 			f.setTelefone(txtF_telefone.getText());	
 			
+			
 			PreparedStatement comando = conexao.prepareStatement(sql);
 			
 			comando.setString(1, f.getNome());
 			comando.setDouble(2, f.getSalario());
 			comando.setString(3, f.getCargo());
 			comando.setString(4, f.getTelefone());
+			
 			comando.execute();
 			
 			System.out.println("Fechando ...");
