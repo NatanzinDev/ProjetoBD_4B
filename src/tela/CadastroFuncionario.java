@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,6 @@ import javax.swing.border.TitledBorder;
 
 import banco.FabricaConexao;
 import dominio.Funcionario;
-import java.text.DecimalFormat;
 
 public class CadastroFuncionario extends JFrame {
 
@@ -351,7 +351,7 @@ public class CadastroFuncionario extends JFrame {
 		if(bt_cadastrar.getText().equals("Cadastrar")) {
 			Connection conexao = FabricaConexao.criarConexao();
 			
-			String sql = "INSERT INTO FUNCIONARIO (nome,salario,cargo,telefone,id_funcionario) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO FUNCIONARIO (nome,salario,cargo,telefone,id_setor) VALUES (?,?,?,?,?)";
 			Funcionario f = new Funcionario();
 			double aux = Double.parseDouble(txtF_salario.getText().toString().replace(",", "."));
 			
@@ -359,7 +359,7 @@ public class CadastroFuncionario extends JFrame {
 			f.setSalario(aux);
 			f.setCargo(txtF_cargo.getText());
 			f.setTelefone(txtF_telefone.getText());	
-			
+			f.setIdsetor(1);			
 			
 			PreparedStatement comando = conexao.prepareStatement(sql);
 			
@@ -367,6 +367,7 @@ public class CadastroFuncionario extends JFrame {
 			comando.setDouble(2, f.getSalario());
 			comando.setString(3, f.getCargo());
 			comando.setString(4, f.getTelefone());
+			comando.setInt(5, f.getIdsetor());
 			
 			comando.execute();
 			
@@ -386,7 +387,7 @@ public class CadastroFuncionario extends JFrame {
 		}else if(bt_cadastrar.getText().equals("Editar")) {
 			Connection conexao = FabricaConexao.criarConexao();
 			double aux = Double.parseDouble(txtF_salario.getText().toString().replace(",", "."));
-			
+			pegarIdDoSetor();
 			funcionarioEdicao.setNome(txtF_nome.getText());
 			funcionarioEdicao.setSalario(aux);
 			funcionarioEdicao.setCargo(txtF_cargo.getText());
@@ -421,6 +422,13 @@ public class CadastroFuncionario extends JFrame {
 		atualizarListagem();
 	}
 	
+	private void pegarIdDoSetor() throws ClassNotFoundException, SQLException {
+		Connection conexao = FabricaConexao.criarConexao();
+		
+		String sql = "SELECT id_setor FROM Funcionario";
+		
+	}
+
 	//função para atualizar lista
 	private void atualizarListagem() throws ClassNotFoundException, SQLException {
 		Connection conexao = FabricaConexao.criarConexao(); 

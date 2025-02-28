@@ -72,7 +72,7 @@ public class SetorDao {
 	public void cadastrarFuncionarioNoSetor(Setor s, Funcionario f) throws SQLException, ClassNotFoundException {
 		Connection conexao = FabricaConexao.criarConexao();
 		s.getFuncionarios().add(f);
-		String sql = "INSERT INTO funcionario(id_setor) VALUES(?) WHERE id_funcionario = ?";
+		String sql = "UPDATE funcionario SET id_setor = ? WHERE id_funcionario = ?";
 	
 		PreparedStatement comando = conexao.prepareStatement(sql.toString());
 		

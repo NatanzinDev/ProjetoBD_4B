@@ -204,12 +204,12 @@ public class CadastrarSupervisor extends JFrame {
 		comando.setString(3, s.getSenha());
 		comando.execute();
 
-		System.out.println("Fechando Conex�o");
+		
 
 		comando.close();
 		conexao.close();
 
-		exibirMensagem("Usuário " + nome + " Cadastro com Sucesso");
+		exibirMensagem("Usuário " + nome + " Cadastro com Sucesso, volte para tela inicial e faça o login.");
 
 		// Limpando os Campos
 		txf_email.setText("");
