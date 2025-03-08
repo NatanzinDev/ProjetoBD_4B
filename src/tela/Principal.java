@@ -67,12 +67,23 @@ public class Principal extends JFrame {
 		bt_bf.setBounds(224, 245, 301, 40);
 		contentPane.add(bt_bf);
 
-		JButton btnCadastrarsetor = new JButton("Cadastrar Setor");
+		JButton btnCadastrarsetor = new JButton("Cadastrar Funcionário");
 		btnCadastrarsetor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastrarSetor a = null;
+			
+				
+				CadastroFuncionario a = null;
+				try {
+					a = new CadastroFuncionario();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				;
 
-				a = new CadastrarSetor();
 				a.setLocationRelativeTo(null);
 				a.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				a.setVisible(true);
@@ -99,21 +110,12 @@ public class Principal extends JFrame {
 		bt_bs.setBounds(224, 313, 298, 40);
 		contentPane.add(bt_bs);
 
-		JButton bt_cf = new JButton("Cadastrar Funcionários");
+		JButton bt_cf = new JButton("Cadastrar Setor");
 		bt_cf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CadastroFuncionario a = null;
-				try {
-					a = new CadastroFuncionario();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				;
+				CadastrarSetor a = null;
 
+				a = new CadastrarSetor();
 				a.setLocationRelativeTo(null);
 				a.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				a.setVisible(true);
