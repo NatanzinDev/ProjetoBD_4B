@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,9 +155,9 @@ public class BuscarFuncionario extends JFrame {
 		
 		for (int i = 0; i < encontrado.size(); i++) {
 			Funcionario f = encontrado.get(i);
-			
+			DecimalFormat d = new DecimalFormat("0.00");
 			System.out.println(f.getNome()+String.valueOf(f.getSalario())+f.getCargo()+f.getTelefone()+f.getSetor().getNome());
-			modelo.addRow(new String[] { f.getNome(),String.valueOf(f.getSalario()),f.getCargo(),f.getTelefone(),f.getSetor().getNome() ,});
+			modelo.addRow(new String[] { f.getNome(),String.valueOf(d.format(f.getSalario())),f.getCargo(),f.getTelefone(),f.getSetor().getNome() ,});
 		}
 		
 		table.setModel(modelo);
